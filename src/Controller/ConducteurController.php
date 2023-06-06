@@ -57,7 +57,13 @@ class ConducteurController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $conducteurRepository->save($conducteur, true);
 
+            $this->addFlash("success","Le conducteur <strong>{$conducteur->getPrenom()} {$conducteur->getNom()}</strong> a bien été modifié !");
+
             return $this->redirectToRoute('app_conducteur_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        else if ($form->isSubmitted() && !$form->isValid()){
+            $this->addFlash("warning","Le conducteur <strong>{$conducteur->getPrenom()} {$conducteur->getNom()}</strong> n'a pas pu être modifié !");
         }
 
         return $this->render('conducteur/edit.html.twig', [
