@@ -34,7 +34,7 @@ class ConducteurController extends AbstractController
             return $this->redirectToRoute('app_conducteur_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('conducteur/new.html.twig', [
+        return $this->render('conducteur/new.html.twig', [
             'conducteur' => $conducteur,
             'form' => $form,
         ]);
@@ -60,7 +60,7 @@ class ConducteurController extends AbstractController
             return $this->redirectToRoute('app_conducteur_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('conducteur/edit.html.twig', [
+        return $this->render('conducteur/edit.html.twig', [
             'conducteur' => $conducteur,
             'form' => $form,
         ]);

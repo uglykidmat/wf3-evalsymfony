@@ -34,7 +34,7 @@ class VehiculeController extends AbstractController
             return $this->redirectToRoute('app_vehicule_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('vehicule/new.html.twig', [
+        return $this->render('vehicule/new.html.twig', [
             'vehicule' => $vehicule,
             'form' => $form,
         ]);
@@ -60,7 +60,7 @@ class VehiculeController extends AbstractController
             return $this->redirectToRoute('app_vehicule_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('vehicule/edit.html.twig', [
+        return $this->render('vehicule/edit.html.twig', [
             'vehicule' => $vehicule,
             'form' => $form,
         ]);
