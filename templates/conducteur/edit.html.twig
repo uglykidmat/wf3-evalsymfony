@@ -5,9 +5,10 @@
 {% block body %}
     <h1>Modifier la fiche conducteur</h1>
 
-    {{ include('conducteur/_form.html.twig', {'button_label': 'Update'}) }}
-
+    {{ include('conducteur/_form.html.twig', {'button_label': 'Modifier'}) }}
+    <div class="my-2">
     <a href="{{ path('app_conducteur_index') }}">Retour à la liste</a>
+    </div>
 
     {{ include('conducteur/_delete_form.html.twig') }}
 {% endblock %}

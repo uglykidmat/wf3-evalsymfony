@@ -31,10 +31,12 @@ class VehiculeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $vehiculeRepository->save($vehicule, true);
 
+            $this->addFlash("success","Le véhicule <strong>{$vehicule->getMarque()} {$vehicule->getModele()}</strong> a bien été créé !");
+
             return $this->redirectToRoute('app_vehicule_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('vehicule/new.html.twig', [
+        return $this->render('vehicule/new.html.twig', [
             'vehicule' => $vehicule,
             'form' => $form,
         ]);
@@ -43,8 +45,13 @@ class VehiculeController extends AbstractController
     #[Route('/{id}', name: 'app_vehicule_show', methods: ['GET'])]
     public function show(Vehicule $vehicule): Response
     {
+        $vehiculeid = $vehicule->getId();
+        dump($vehiculeid);
+        
+
         return $this->render('vehicule/show.html.twig', [
             'vehicule' => $vehicule,
+            'vehiculeid' => $vehiculeid
         ]);
     }
 
@@ -57,10 +64,15 @@ class VehiculeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $vehiculeRepository->save($vehicule, true);
 
+            $this->addFlash("success","Le véhicule <strong>{$vehicule->getMarque()} {$vehicule->getModele()}</strong> a bien été modifié !");
+
             return $this->redirectToRoute('app_vehicule_index', [], Response::HTTP_SEE_OTHER);
         }
+        else if ($form->isSubmitted() && !$form->isValid()){
+            $this->addFlash("warning","Le véhicule <strong>{$vehicule->getMarque()} {$vehicule->getModele()}</strong> n'a pas pu être modifié !");
+        }
 
-        return $this->renderForm('vehicule/edit.html.twig', [
+        return $this->render('vehicule/edit.html.twig', [
             'vehicule' => $vehicule,
             'form' => $form,
         ]);

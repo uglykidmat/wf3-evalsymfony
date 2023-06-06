@@ -19,6 +19,14 @@
                 <th>Prenom</th>
                 <td>{{ conducteur.prenom }}</td>
             </tr>
+            <tr>
+                <th>Peut conduire</th>
+                <td>
+                    {% for vehicule in conducteur.relationvehicule %}
+                        {{vehicule}}{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
         </tbody>
     </table>
 

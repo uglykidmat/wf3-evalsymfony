@@ -4,16 +4,31 @@ namespace App\Form;
 
 use App\Entity\Conducteur;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ConducteurType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
-            ->add('prenom')
+            ->add('nom', TextType::class, [
+                'required' => true,
+                'constraints' => [new Assert\Length(['min' => 2]), new NotBlank()],
+                'label' => "Nom",
+                'attr' => ["placeholder" => "Nom..."] 
+            ])
+            ->add('prenom', TextType::class, [
+                'required' => true,
+                'constraints' => [new Assert\Length(['min' => 3]), new NotBlank()],
+                'label' => "Prénom",
+                'attr' => ["placeholder" => "Prénom..."] 
+            ])
             ->add('relationvehicule')
         ;
     }
@@ -23,5 +38,24 @@ class ConducteurType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Conducteur::class,
         ]);
+    }
+
+    public function validateForm(ValidatorInterface $validator)
+    {
+        $conducteur = new Conducteur();
+        $errors = $validator->validate($conducteur);
+
+        if (count($errors) > 0) {
+            /*
+            * Uses a __toString method on the $errors variable which is a
+            * ConstraintViolationList object. This gives us a nice string
+            * for debugging.
+            */
+            $errorsString = (string) $errors;
+
+            return new Response($errorsString);
+        }
+
+        return new Response("Le conducteur est valide !");
     }
 }
