@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Conducteur index{% endblock %}
+{% block title %}Liste des conducteurs{% endblock %}
 
 {% block body %}
-    <h1>Conducteur index</h1>
+    <h1>Liste des conducteurs</h1>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
-            <tr>
+            <tr class="table-light">
                 <th>Id</th>
                 <th>Nom</th>
-                <th>Prenom</th>
+                <th>Prénom</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -21,17 +21,17 @@
                 <td>{{ conducteur.nom }}</td>
                 <td>{{ conducteur.prenom }}</td>
                 <td>
-                    <a href="{{ path('app_conducteur_show', {'id': conducteur.id}) }}">show</a>
-                    <a href="{{ path('app_conducteur_edit', {'id': conducteur.id}) }}">edit</a>
+                    <a href="{{ path('app_conducteur_show', {'id': conducteur.id}) }}">voir</a>
+                    <a href="{{ path('app_conducteur_edit', {'id': conducteur.id}) }}">modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_conducteur_new') }}">Create new</a>
+    <a href="{{ path('app_conducteur_new') }}">Créer un nouveau conducteur</a>
 {% endblock %}

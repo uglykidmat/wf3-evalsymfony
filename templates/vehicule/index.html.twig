@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vehicule index{% endblock %}
+{% block title %}Liste des véhicules{% endblock %}
 
 {% block body %}
-    <h1>Vehicule index</h1>
+    <h1>Liste des véhicules</h1>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
-            <tr>
+            <tr class="table-light">
                 <th>Id</th>
                 <th>Marque</th>
-                <th>Modele</th>
+                <th>Modèle</th>
                 <th>Couleur</th>
                 <th>Immatriculation</th>
                 <th>actions</th>
@@ -25,17 +25,17 @@
                 <td>{{ vehicule.couleur }}</td>
                 <td>{{ vehicule.immatriculation }}</td>
                 <td>
-                    <a href="{{ path('app_vehicule_show', {'id': vehicule.id}) }}">show</a>
-                    <a href="{{ path('app_vehicule_edit', {'id': vehicule.id}) }}">edit</a>
+                    <a href="{{ path('app_vehicule_show', {'id': vehicule.id}) }}">voir</a>
+                    <a href="{{ path('app_vehicule_edit', {'id': vehicule.id}) }}">modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">Aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_vehicule_new') }}">Create new</a>
+    <a href="{{ path('app_vehicule_new') }}">Créer un nouveau véhicule</a>
 {% endblock %}
