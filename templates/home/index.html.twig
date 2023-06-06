@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Bienvenue sur Qui-conduit-quoi</h1>
+<h2>Liste des entités : </h2>
+<ul>
+    <li>
+        <a href="{{path("app_conducteur_index")}}">
+        <i class="fa-solid fa-cars"></i> Conducteurs
+        </a>
+    </li>
+    <li><a href="{{path("app_vehicule_index")}}">
+        <i class="fa-solid fa-cars"></i> Véhicules
+        </a></li>
+</ul>
+{% endblock %}

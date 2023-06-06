@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des véhicules{% endblock %}
+
+{% block body %}
+    <h1>Liste des véhicules</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr class="table-light">
+                <th>Id</th>
+                <th>Marque</th>
+                <th>Modèle</th>
+                <th>Couleur</th>
+                <th>Immatriculation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for vehicule in vehicules %}
+            <tr>
+                <td>{{ vehicule.id }}</td>
+                <td>{{ vehicule.marque }}</td>
+                <td>{{ vehicule.modele }}</td>
+                <td>{{ vehicule.couleur }}</td>
+                <td>{{ vehicule.immatriculation }}</td>
+                <td>
+                    <a href="{{ path('app_vehicule_show', {'id': vehicule.id}) }}">voir</a>
+                    <a href="{{ path('app_vehicule_edit', {'id': vehicule.id}) }}">modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_vehicule_new') }}">Créer un nouveau véhicule</a>
+{% endblock %}
