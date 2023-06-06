@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Vehicule;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Vehicule>
@@ -53,6 +53,33 @@ class VehiculeRepository extends ServiceEntityRepository
 //            ->getResult()
 //        ;
 //    }
+
+    // public function findAllConducteurs(Vehicule $vehicule){
+    //     $vehiculeid = $vehicule->getId();
+    //     $qb = $this->createQueryBuilder($vehiculeid)
+    //     ->select("nom","prenom")
+    //     ->from("conducteur", "c")
+    //        ->andWhere('v.exampleField = :val')
+    //        ->setParameter('val', $value)
+    //        ->orderBy('v.id', 'ASC')
+    //        ->setMaxResults(100)
+    //        ->getQuery()
+    //        ->getResult()
+
+           
+    //    ;
+
+    //    return $qb;
+    // }
+
+// SELECT v.id, c.nom, c.prenom
+// FROM conducteur c
+// INNER JOIN vehicule_conducteur vc ON c.id = vc.conducteur_id
+// INNER JOIN vehicule v ON vc.vehicule_id = v.id;
+
+
+
+
 
 //    public function findOneBySomeField($value): ?Vehicule
 //    {

@@ -45,8 +45,13 @@ class VehiculeController extends AbstractController
     #[Route('/{id}', name: 'app_vehicule_show', methods: ['GET'])]
     public function show(Vehicule $vehicule): Response
     {
+        $vehiculeid = $vehicule->getId();
+        dump($vehiculeid);
+        
+
         return $this->render('vehicule/show.html.twig', [
             'vehicule' => $vehicule,
+            'vehiculeid' => $vehiculeid
         ]);
     }
 
