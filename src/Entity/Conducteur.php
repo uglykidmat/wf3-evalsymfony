@@ -70,7 +70,11 @@ class Conducteur
     public function addRelationvehicule(Vehicule $relationvehicule): self
     {
         if (!$this->relationvehicule->contains($relationvehicule)) {
+            
+
+
             $this->relationvehicule[] = $relationvehicule;
+            $this->relationvehicule->add($relationvehicule);
             $relationvehicule->addRelationconducteur($this);
         }
 

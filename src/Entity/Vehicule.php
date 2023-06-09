@@ -100,8 +100,12 @@ class Vehicule
     public function addRelationconducteur(Conducteur $relationconducteur): self
     {
         if (!$this->relationconducteur->contains($relationconducteur)) {
+
+            
+
             $this->relationconducteur[] = $relationconducteur;
             $this->relationconducteur->add($relationconducteur);
+            $relationconducteur->addRelationvehicule($this);
         }
 
         return $this;
