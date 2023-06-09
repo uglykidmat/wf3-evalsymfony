@@ -22,6 +22,7 @@ class Conducteur
     private ?string $prenom = null;
 
     #[ORM\ManyToMany(targetEntity: Vehicule::class, mappedBy: 'relationconducteur')]
+    #[ORM\JoinTable(name: "vehicule_conducteur")]
     private Collection $relationvehicule;
 
     public function __construct()
@@ -69,18 +70,22 @@ class Conducteur
     public function addRelationvehicule(Vehicule $relationvehicule): self
     {
         if (!$this->relationvehicule->contains($relationvehicule)) {
-            $this->relationvehicule->add($relationvehicule);
+            $this->relationvehicule[] = $relationvehicule;
             $relationvehicule->addRelationconducteur($this);
         }
 
         return $this;
     }
 
+
+
     public function removeRelationvehicule(Vehicule $relationvehicule): self
     {
         if ($this->relationvehicule->removeElement($relationvehicule)) {
             $relationvehicule->removeRelationconducteur($this);
         }
+        $relationvehicule->removeRelationconducteur($this);
+        
 
         return $this;
     }

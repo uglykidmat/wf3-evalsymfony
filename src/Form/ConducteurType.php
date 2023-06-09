@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ConducteurType extends AbstractType
 {
@@ -29,7 +30,8 @@ class ConducteurType extends AbstractType
                 'label' => "Prénom",
                 'attr' => ["placeholder" => "Prénom..."] 
             ])
-            ->add('relationvehicule')
+            ->add('relationvehicule'
+            )
         ;
     }
 
