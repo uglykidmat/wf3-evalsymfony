@@ -22,23 +22,31 @@ class ConducteurController extends AbstractController
     }
 
     #[Route('/new', name: 'app_conducteur_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ConducteurRepository $conducteurRepository): Response
+    public function new(Request $request, ConducteurRepository $conducteurRepository)
     {
         $conducteur = new Conducteur();
         $form = $this->createForm(ConducteurType::class, $conducteur);
         $form->handleRequest($request);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // $conducteur->addRelationvehicule();
             $conducteurRepository->save($conducteur, true);
 
-            return $this->redirectToRoute('app_conducteur_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute("app_conducteur_show",[
+                "id" => $conducteur->getId()
+            ]);
         }
 
+        else if ($form->isSubmitted() && !$form->isValid()){
+             $this->addFlash("danger","Le conducteur <strong>{$conducteur->getNom()} {$conducteur->getPrenom()}</strong> n'a pas pu être créé !");
+            }
         return $this->render('conducteur/new.html.twig', [
             'conducteur' => $conducteur,
             'form' => $form,
         ]);
-    }
+    
+}
 
     #[Route('/{id}', name: 'app_conducteur_show', methods: ['GET'])]
     public function show(Conducteur $conducteur): Response

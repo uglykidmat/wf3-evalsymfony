@@ -28,6 +28,7 @@ class Vehicule
     private ?string $immatriculation = null;
 
     #[ORM\ManyToMany(targetEntity: Conducteur::class, inversedBy: 'relationvehicule')]
+    #[ORM\JoinTable(name: "vehicule_conducteur")]
     private Collection $relationconducteur;
 
     public function __construct()
@@ -99,6 +100,7 @@ class Vehicule
     public function addRelationconducteur(Conducteur $relationconducteur): self
     {
         if (!$this->relationconducteur->contains($relationconducteur)) {
+            $this->relationconducteur[] = $relationconducteur;
             $this->relationconducteur->add($relationconducteur);
         }
 
@@ -107,8 +109,11 @@ class Vehicule
 
     public function removeRelationconducteur(Conducteur $relationconducteur): self
     {
-        $this->relationconducteur->removeElement($relationconducteur);
-
+        if ($this->relationconducteur->removeElement($relationconducteur)) {
+            // Cette ligne permet de supprimer ce véhicule de la liste des véhicules du conducteur passé en argument.
+            // Sans cette ligne, lorsque tu supprimes un conducteur d'un véhicule, le conducteur n'est pas informé qu'il a été supprimé de ce véhicule.
+            $relationconducteur->removeRelationvehicule($this);
+        }
         return $this;
     }
 
