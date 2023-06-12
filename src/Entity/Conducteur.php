@@ -21,7 +21,7 @@ class Conducteur
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\ManyToMany(targetEntity: Vehicule::class, mappedBy: 'relationconducteur')]
+    #[ORM\ManyToMany(targetEntity: Vehicule::class, inversedBy: 'relationconducteur')]
     #[ORM\JoinTable(name: "vehicule_conducteur")]
     private Collection $relationvehicule;
 
@@ -70,7 +70,9 @@ class Conducteur
     public function addRelationvehicule(Vehicule $relationvehicule): self
     {
         if (!$this->relationvehicule->contains($relationvehicule)) {
+            
             $this->relationvehicule[] = $relationvehicule;
+            $this->relationvehicule->add($relationvehicule);
             $relationvehicule->addRelationconducteur($this);
         }
 

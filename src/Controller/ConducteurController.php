@@ -27,14 +27,16 @@ class ConducteurController extends AbstractController
         $conducteur = new Conducteur();
         $form = $this->createForm(ConducteurType::class, $conducteur);
         $form->handleRequest($request);
-        
+        $data = $form->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
             // $conducteur->addRelationvehicule();
+            
             $conducteurRepository->save($conducteur, true);
 
             return $this->redirectToRoute("app_conducteur_show",[
-                "id" => $conducteur->getId()
+                "id" => $conducteur->getId(),
+                'data' => $data
             ]);
         }
 
@@ -53,6 +55,7 @@ class ConducteurController extends AbstractController
     {
         return $this->render('conducteur/show.html.twig', [
             'conducteur' => $conducteur,
+            'data' => null,
         ]);
     }
 

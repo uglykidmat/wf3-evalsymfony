@@ -2,10 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Vehicule;
 use App\Entity\Conducteur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -30,8 +32,19 @@ class ConducteurType extends AbstractType
                 'label' => "Prénom",
                 'attr' => ["placeholder" => "Prénom..."] 
             ])
-            ->add('relationvehicule'
-            )
+            // todo finir truc
+            ->add('relationvehicule', EntityType::class, [
+                // looks for choices from this entity
+                'class' => Vehicule::class,
+            
+                // uses the User.username property as the visible option string
+                'choice_label' => 'immatriculation',
+            
+                // used to render a select box, check boxes or radios
+                  'multiple' => true,
+                // 'expanded' => true,
+            ])
+            
         ;
     }
 
