@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\VehiculeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\VehiculeRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: VehiculeRepository::class)]
 class Vehicule
@@ -25,6 +27,11 @@ class Vehicule
     private ?string $couleur = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Regex(
+        pattern: '/[A-Z]{2}-\d{3}-[A-Z]{2}/i',
+        // htmlPattern: '^[a-zA-Z]+$',
+        message: "L'immatriculation doit être de type LL-NNN-LL. Exemple : AB-123-CD"
+    )]
     private ?string $immatriculation = null;
 
     #[ORM\ManyToMany(targetEntity: Conducteur::class, inversedBy: 'relationvehicule')]
@@ -100,8 +107,6 @@ class Vehicule
     public function addRelationconducteur(Conducteur $relationconducteur): self
     {
         if (!$this->relationconducteur->contains($relationconducteur)) {
-
-            
 
             $this->relationconducteur[] = $relationconducteur;
             $this->relationconducteur->add($relationconducteur);
